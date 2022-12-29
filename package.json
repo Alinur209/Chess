@@ -1,0 +1,16 @@
+{
+  "name": "chess",
+  "version": "1.0.0",
+  "description": "Chess game on Vanilla.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "author": "Maliaev Alinur <malyaev.alinur247@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
+}

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+body {
+    background-color: #f0f0f0;
+}
+#box {
+    width: 700px;
+    max-width: 700px;
+    padding: 50px;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#title {
+    margin: 0;
+}
+
+#board {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+}
+.square {
+    min-height: 75px;
+    border: 1px solid #e3e3e3;
+    position: relative;
+    user-select: none;
+    background-size: contain;   
+    background-repeat: no-repeat;
+}
+.square.odd {
+    background-color: #e3e3e3
+}
+.square.even {
+    background-color: rgb(137 116 116)
+}
+.y_index {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 9;
+}
+.square.even .y_index {
+    color: #e3e3e3;
+}
+.square.odd .y_index {
+    color: rgb(137 116 116);
+}
+.x_index {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+.square.odd .x_index {
+    color: rgb(137 116 116);
+}
+.square.even .x_index {
+    color: #e3e3e3;
+}
+.move_mark {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 38%;
+    left: 38%;
+    border-radius: 100px;
+    background-color: rgb(97, 97, 97);
+    opacity: 0.6;
+    pointer-events: none;
+}
+.move_mark.capture {
+    width: 95%;
+    height: 95%;
+    position: absolute;
+    left: 2.5%;
+    top: 2.5%;
+    border-radius: 100px;
+    border-radius: 100px;
+    background: none;
+    border: 2px solid #5825cc;
+    opacity: 0.6;
+}
+.check_mark {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    left: 2.5%;
+    top: 2.5%;
+    border-radius: 100px;
+    border-radius: 100px;
+    background: none;
+    border: 2px solid #ff0000;
+    opacity: 0.8;
+    pointer-events: none;
+}
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+.profile_avatar {
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+    background-color: #e3e3e3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile_avatar img {
+    width: 60%;
+}
+.profile li {
+    width: 32px;
+    height: 32px;
+    list-style:none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.eaten_piece img {
+    width: 100%;
+    height: 100%;
+}
+.eaten_list {
+    display: flex;
+    flex-direction: row;
+}
