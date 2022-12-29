@@ -35,6 +35,10 @@ class Rook extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...top, (this.name[0] + this.coordinates)])
+                        }
                         top.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -49,6 +53,10 @@ class Rook extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...bottom, (this.name[0] + this.coordinates)])
+                        }
                         bottom.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -80,6 +88,10 @@ class Rook extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...right, (this.name[0] + this.coordinates)])
+                        }
                         right.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -94,6 +106,10 @@ class Rook extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...left, (this.name[0] + this.coordinates)])
+                        }
                         left.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -107,8 +123,11 @@ class Rook extends Piece {
             this.moves = [...top, ...bottom, ...left, ...right]
             return this.moves
         }else {
-            this.moves = []
-            return []
+            const ally_king = KingService.get_current_king()
+            const moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
+
+            this.moves = moves
+            return moves
         }
     }
 }

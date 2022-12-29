@@ -1,7 +1,7 @@
 {
   "name": "chess",
   "version": "1.0.0",
-  "description": "Chess game on Vanilla.js",
+  "description": "Description..",
   "main": "index.js",
   "type": "module",
   "scripts": {

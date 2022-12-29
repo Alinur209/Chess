@@ -40,9 +40,17 @@ class Pawn extends Piece {
             if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") !== this.color) {
                 result.push(left_square.getAttribute("abs_coordinates"))
             }else if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") === this.color) {
+                if(right_square.getAttribute("abs_coordinates")[0] === "K") {
+                    const king = KingService.get_opposite_king()
+                    king.pushAtackingMoves(this.name[0] + this.coordinates)
+                }
                 Pieces.protectPiece(left_square)
             }
             if(right_square?.getAttribute("abs_coordinates").length === 3 && right_square.getAttribute("piece_color") !== this.color) {
+                if(right_square.getAttribute("abs_coordinates")[0] === "K") {
+                    const king = KingService.get_opposite_king()
+                    king.pushAtackingMoves(this.name[0] + this.coordinates)
+                }
                 result.push(right_square.getAttribute("abs_coordinates"))
             } else if(right_square?.getAttribute("abs_coordinates").length === 3 && right_square.getAttribute("piece_color") === this.color) {
                 Pieces.protectPiece(right_square)
@@ -68,12 +76,20 @@ class Pawn extends Piece {
             }
 
             if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") !== this.color) {
+                if(right_square.getAttribute("abs_coordinates")[0] === "K") {
+                    const king = KingService.get_opposite_king()
+                    king.pushAtackingMoves(this.name[0] + this.coordinates)
+                }
                 result.push(left_square.getAttribute("abs_coordinates"))
             } else if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") === this.color) {
                 Pieces.protectPiece(left_square)
             }
             
             if(right_square?.getAttribute("abs_coordinates").length === 3 && right_square.getAttribute("piece_color") !== this.color) {
+                if(right_square.getAttribute("abs_coordinates")[0] === "K") {
+                    const king = KingService.get_opposite_king()
+                    king.pushAtackingMoves(this.name[0] + this.coordinates)
+                }
                 result.push(right_square.getAttribute("abs_coordinates"))
             }else if(right_square?.getAttribute("abs_coordinates").length === 3 && right_square.getAttribute("piece_color") === this.color) {
                 Pieces.protectPiece(right_square)
@@ -122,8 +138,13 @@ class Pawn extends Piece {
             this.moves = [...this.attack_moves, ...this.front_moves]
             return this.moves
         }else {
-            this.moves = []
-            return []
+            const ally_king = KingService.get_current_king()
+            this.get_attack_moves()
+            this.get_front_moves()
+            const moves = [...this.attack_moves, ...this.front_moves].filter(move => ally_king.attacking_stream.flat().includes(move))
+
+            this.moves = moves
+            return moves
         }
     }
 }

@@ -6,8 +6,8 @@ import Pieces from "../Pieces.js";
 class King extends Piece {
     range = []
     is_safe = true
-    attackers = []
-    
+    attacking_stream = []
+
     defineMoves() {        
         const x = this.coordinates[0]
         const y = Number(this.coordinates[1])
@@ -84,6 +84,16 @@ class King extends Piece {
         })
 
         return this.range
+    }
+
+    resetAttackers() {
+        this.attacking_stream = []
+    }
+
+    pushAtackingMoves(attacking_moves) {
+        // attacking_moves: rook moves, bishop moves
+
+        this.attacking_stream.push(attacking_moves)
     }
 }
 

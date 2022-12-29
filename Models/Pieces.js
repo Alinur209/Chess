@@ -1,5 +1,6 @@
 import Utiles from "../Utiles/utiles.js"
 import Board from "./Board.js"
+import Game from "./Game.js"
 import KingService from "./KingService.js"
 import Bishop from "./Pieces/Bishop.js"
 import King from "./Pieces/King.js"
@@ -111,7 +112,7 @@ class Pieces {
 
     static defineMoves() {
         new Promise(resolve => {
-            this.pieces.forEach(piece => piece.name === "King" && piece.defineRange())
+        this.pieces.forEach(piece => piece.name === "King" && piece.defineRange() &&  piece.resetAttackers())
             this.pieces.forEach(piece => piece.defineMoves())
             resolve(this.pieces)
         })
@@ -119,6 +120,11 @@ class Pieces {
             KingService.serveKing(pieces)
             this.pieces.forEach(piece => piece.name === "King" && piece.defineRange())
             this.pieces.forEach(piece => piece.defineMoves())
+        })
+        .finally(() => {
+            if(KingService.is_mate()) {
+                Game.revealTheWinner(KingService.get_opposite_king().color)
+            }
         })
     }
 }

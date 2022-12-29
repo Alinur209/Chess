@@ -3,11 +3,18 @@ import Pieces from "./Pieces.js"
 
 class Game {
     static revealTheWinner(player) {
-        alert(player + " won!")
+        console.log(player, " won")
+
+        setTimeout(() => {
+            const board = document.getElementById("board")
+            board.innerHTML = ''
+            Pieces.pieces = []
+            this.restart()
+        }, 3000);
     }
     
     static restart() {
-        
+        this.setup()
     }
 
     static setup() {

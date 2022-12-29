@@ -35,9 +35,16 @@ class Knight extends Piece {
             if(abs_coordinates?.length === 2) {
                 return item
             }else if(abs_coordinates?.length === 3){
+
+                if(abs_coordinates[0] === "K") {
+                    const king = KingService.get_opposite_king()
+                    king.pushAtackingMoves("N" + this.coordinates)
+                }
+    
                 const target_square = Board.getSquareWithPiece(abs_coordinates)
 
                 if(this.color !== target_square.getAttribute("piece_color")) {
+
                     return abs_coordinates
                 }else {
                     Pieces.protectPiece(target_square)
@@ -49,8 +56,10 @@ class Knight extends Piece {
             this.moves = result
             return this.moves
         }else {
-            this.moves = []
-            return []
+            const ally_king = KingService.get_current_king()
+            const moves = result.filter(move => ally_king.attacking_stream.flat().includes(move))
+            this.moves = moves
+            return moves
         }
     }
 }

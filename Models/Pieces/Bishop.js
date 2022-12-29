@@ -6,7 +6,7 @@ import Pieces from "../Pieces.js";
 
 class Bishop extends Piece {
 
-    defineMoves() {
+defineMoves() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
         const input_x = this.coordinates[0]
         const input_y = Number(this.coordinates[1])
         const input_piece_color = this.color
@@ -35,6 +35,11 @@ class Bishop extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
                     
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...topRight, (this.name[0] + this.coordinates)])
+                        }
+
                         topRight.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -49,6 +54,11 @@ class Bishop extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
                     
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...bottomRight, (this.name[0] + this.coordinates)])
+                        }
+
                         bottomRight.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -86,6 +96,11 @@ class Bishop extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
                     
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...topLeft, (this.name[0] + this.coordinates)])
+                        }
+
                         topLeft.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -100,6 +115,12 @@ class Bishop extends Piece {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
                     
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
+                        if(abs_coordinates[0] === "K") {
+                            const king = KingService.get_opposite_king()
+                            king.pushAtackingMoves([...bottomLeft, (this.name[0] + this.coordinates)])
+
+                        }
+
                         bottomLeft.push(abs_coordinates)
                     }else {
                         Pieces.protectPiece(target_piece)
@@ -114,15 +135,17 @@ class Bishop extends Piece {
                 i = -x_index 
                 j = input_y 
             }
-
         }
             
         if(KingService.isSafeKing(Pieces.pieces) || KingService.get_current_king().color !== this.color) {
             this.moves = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight]
             return this.moves
         }else {
-            this.moves = []
-            return []
+            const ally_king = KingService.get_current_king()
+            const moves = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight].filter(move => ally_king.attacking_stream.flat().includes(move))
+
+            this.moves = moves
+            return moves
         }
     }
 }
