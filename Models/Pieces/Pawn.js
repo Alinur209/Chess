@@ -40,7 +40,7 @@ class Pawn extends Piece {
             if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") !== this.color) {
                 result.push(left_square.getAttribute("abs_coordinates"))
             }else if(left_square?.getAttribute("abs_coordinates").length === 3 && left_square.getAttribute("piece_color") === this.color) {
-                if(right_square.getAttribute("abs_coordinates")[0] === "K") {
+                if(left_square.getAttribute("abs_coordinates")[0] === "K") {
                     const king = KingService.get_opposite_king()
                     king.pushAtackingMoves(this.name[0] + this.coordinates)
                 }

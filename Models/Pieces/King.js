@@ -4,7 +4,7 @@ import Piece from "../Piece.js";
 import Pieces from "../Pieces.js";
 
 class King extends Piece {
-    range = []
+    range = {}
     is_safe = true
     attacking_stream = []
 
@@ -14,7 +14,7 @@ class King extends Piece {
         const x_index = Utiles.x_indexes.indexOf(x)
         let result = []
 
-        this.range.forEach(coordinates => {
+        this.range.all.forEach(coordinates => {
             const abs_coordinates = Board.getAbsCoordinates(coordinates)
 
             if(abs_coordinates.length === 3) {
@@ -38,12 +38,29 @@ class King extends Piece {
     }
 
     isSafeSquare(coordinates, pieces) {
-        if(!pieces) pieces = Pieces.pieces
         // coordinates.length === 2
-
+        if(!pieces) pieces = Pieces.pieces
         let result = true
+
+        if(!this.is_safe) {
+            for(let i in this.range) {
+                if(i !== "all") {
+                    this.range[i].forEach( coor => {
+                        this.attacking_stream.forEach(att_coor => {
+                            if(att_coor.includes(coor)) {
+                                if(this.range[i].includes(coordinates)) {
+                                    result = false
+                                }
+                            }
+                        })
+                    })
+                }
+            }
+        }
+
         pieces.forEach(piece => {
             if(piece.color !== this.color) {
+
                 if(piece.name !== "Pawn" && piece.name !== "King") {
                     if(piece.moves.includes(coordinates)) {
                         result = false
@@ -53,7 +70,7 @@ class King extends Piece {
                         result = false
                     }
                 }else if(piece.name === "King") {
-                    if(piece.range.includes(coordinates)) {
+                    if(piece.range.all.includes(coordinates)) {
                         result = false
                     }
                 }
@@ -68,21 +85,21 @@ class King extends Piece {
         const y = Number(this.coordinates[1])
         const x_index = Utiles.x_indexes.indexOf(x)
 
-        this.range = [
-            x + (y + 1),
-            x + (y - 1),
-            Utiles.x_indexes[x_index - 1] + y,
-            Utiles.x_indexes[x_index + 1] + y,
-            Utiles.x_indexes[x_index - 1] + (y + 1),
-            Utiles.x_indexes[x_index + 1] + (y + 1),
-            Utiles.x_indexes[x_index - 1] + (y - 1),
-            Utiles.x_indexes[x_index + 1] + (y - 1),
-        ].filter(item => {
-            if(Number(item[1]) && Number(item[1]) < 9) {
-                return item
-            }
-        })
+        const range = {
+            all: [],
+            diagonals_pair_1: [Utiles.x_indexes[x_index - 1] + (y + 1),  Utiles.x_indexes[x_index + 1] + (y - 1)],
+            diagonals_pair_2: [Utiles.x_indexes[x_index + 1] + (y + 1), Utiles.x_indexes[x_index - 1] + (y - 1),],
+            horizontal: [x + (y + 1), x + (y - 1),],
+            vertical: [Utiles.x_indexes[x_index - 1] + y, Utiles.x_indexes[x_index + 1] + y]
+        }
+        
+        for(let i in range) {
+            range[i] = [...range[i].filter(item => Number(item[1]) && Number(item[1]) < 9)]
+        }
 
+        range.all = [...range.diagonals_pair_1, ...range.diagonals_pair_2, ...range.horizontal, ...range.vertical]
+
+        this.range = range
         return this.range
     }
 

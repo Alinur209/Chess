@@ -175,7 +175,7 @@ class Board {
     }
 
     static getY(index) {
-        return  Math.ceil(Math.abs(((index ) / 8) - 8))
+        return Math.ceil(Math.abs(((index ) / 8) - 8))
     }
 
     static getCoordinates(index) {
