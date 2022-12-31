@@ -5,12 +5,34 @@ import Piece from "../Piece.js";
 import Pieces from "../Pieces.js";
 
 class Rook extends Piece {
+    has_moved = false
+    castle_index = null
+
+    define_castle_index(){
+        if(this.color === "white") {
+            if(this.coordinates === "h1") {
+                this.castle_index = "short"
+            }else if(this.coordinates === "a1") {
+                this.castle_index = "long"
+            }
+        }else {
+            if(this.coordinates === "h8") {
+                this.castle_index = "short"
+            }else if(this.coordinates === "a8") {
+                this.castle_index = "long"
+            }
+        }
+    }
 
     defineMoves() {
         const x = this.coordinates[0]
         const y = Number(this.coordinates[1])
 
         const input_piece_color = this.color
+
+        if(!this.castle_index) {
+            this.define_castle_index()
+        }
 
         let top = []
         let bottom = []

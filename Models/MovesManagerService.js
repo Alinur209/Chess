@@ -14,6 +14,7 @@ class MovesManagerService {
             default:
                 this.moves.push(piece.name[0] + to)
         }
+
     }
 
     static push_capture_move(attacking_piece, target_piece) {

@@ -1,5 +1,6 @@
 import Utiles from "../Utiles/utiles.js"
 import Board from "./Board.js"
+import CastleService from "./CastleService.js"
 import Game from "./Game.js"
 import KingService from "./KingService.js"
 import Bishop from "./Pieces/Bishop.js"
@@ -77,6 +78,18 @@ class Pieces {
     }
 
     static move_piece(input_piece, to) {
+        const input_piece_color = input_piece.color
+
+       if(
+            input_piece.name === "King" && 
+            (input_piece_color === "white" ? 
+                to === "g1" ||  to === "c1"
+            : 
+                to === "g8" ||  to === "c8"
+            )
+       ) {      
+            CastleService.castle(to === "g1" ||  to === "g8" ? "short" : "long")
+       }
 
         const piece_square = Board.getSquare(input_piece.coordinates)
         Board.cleanSquare(piece_square)
@@ -98,6 +111,12 @@ class Pieces {
             }
         })
 
+        if(input_piece.name === "Rook") {
+            input_piece.has_moved = true
+        }else if(input_piece.name === "King") {
+            input_piece.has_moved = true
+        }
+
         this.defineMoves()
     }
 
@@ -112,7 +131,7 @@ class Pieces {
 
     static defineMoves() {
         new Promise(resolve => {
-        this.pieces.forEach(piece => piece.name === "King" && piece.defineRange() &&  piece.resetAttackers())
+            this.pieces.forEach(piece => piece.name === "King" && piece.defineRange() &&  piece.resetAttackers())
             this.pieces.forEach(piece => piece.defineMoves())
             resolve(this.pieces)
         })
@@ -127,6 +146,7 @@ class Pieces {
             }
         })
     }
+
 }
 
 export default Pieces

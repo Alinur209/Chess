@@ -3,8 +3,6 @@ import Pieces from "./Pieces.js"
 
 class Game {
     static revealTheWinner(player) {
-        console.log(player, " won")
-
         setTimeout(() => {
             const board = document.getElementById("board")
             board.innerHTML = ''

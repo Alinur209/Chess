@@ -1,16 +1,19 @@
 import Utiles from "../../Utiles/utiles.js";
 import Board from "../Board.js";
+import CastleService from "../CastleService.js";
 import Piece from "../Piece.js";
 import Pieces from "../Pieces.js";
 
 class King extends Piece {
     range = {}
     is_safe = true
+    has_moved = false
     attacking_stream = []
 
     defineMoves() {        
-        const x = this.coordinates[0]
         let result = []
+
+        result.push(...CastleService.getMoves(this.color))
 
         this.range.all.forEach(coordinates => {
             const abs_coordinates = Board.getAbsCoordinates(coordinates)
