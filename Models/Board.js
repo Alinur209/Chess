@@ -72,7 +72,7 @@ class Board {
 
         board.addEventListener("click", e => {
             const coordinates = e.target.getAttribute("abs_coordinates")
-            const target_piece = Pieces.findPiece(coordinates.slice(1,3))
+            const target_piece = Pieces.findPiece(coordinates?.slice(1,3))
 
             // FIRST CLICK
             if(coordinates.length === 3 && !this.move.length) {

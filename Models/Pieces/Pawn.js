@@ -110,7 +110,7 @@ class Pawn extends Piece {
 
         if(this.color === "white") {
             const square = Board.getSquare(x + (y + 1))
-            if(square.getAttribute("abs_coordinates").length === 2) {
+            if(square?.getAttribute("abs_coordinates").length === 2) {
                 result.push(square.getAttribute("abs_coordinates"))
                 if(is_initial_position && Board.getSquare(x + (y + 2)).getAttribute('abs_coordinates').length === 2) {
                     result.push(x + (y + 2))
@@ -119,7 +119,7 @@ class Pawn extends Piece {
         }else {
             const square = Board.getSquare(x + ( y - 1))
 
-            if(square.getAttribute("abs_coordinates").length === 2) {
+            if(square?.getAttribute("abs_coordinates").length === 2) {
                 result.push(square.getAttribute("abs_coordinates"))
                 if(is_initial_position && Board.getSquare(x + (y - 2)).getAttribute('abs_coordinates').length === 2) {
                     result.push(x + (y - 2))

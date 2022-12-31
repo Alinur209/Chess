@@ -9,6 +9,7 @@ import Knight from "./Pieces/Knight.js"
 import Pawn from "./Pieces/Pawn.js"
 import Queen from "./Pieces/Queen.js"
 import Rook from "./Pieces/Rook.js"
+import PromotionService from "./PromotionService.js"
 
 class Pieces {      
     static pieces = []
@@ -80,6 +81,12 @@ class Pieces {
     static move_piece(input_piece, to) {
         const input_piece_color = input_piece.color
 
+        if(input_piece.name === "Rook") {
+            input_piece.has_moved = true
+        }else if(input_piece.name === "King") {
+            input_piece.has_moved = true
+        }
+
        if(
             input_piece.name === "King" && 
             (input_piece_color === "white" ? 
@@ -101,6 +108,10 @@ class Pieces {
             }   
         })
 
+        if(input_piece.name === "Pawn" && (Number(to[1]) === 8 || Number(to[1]) === 1)) {
+            PromotionService.promote(input_piece, to)
+        } 
+
         const squares = Board.getSquares()
         squares.forEach(square => {
             if(square.getAttribute("coordinates") === to) {
@@ -110,12 +121,6 @@ class Pieces {
                 square.setAttribute("piece_color", input_piece.color) 
             }
         })
-
-        if(input_piece.name === "Rook") {
-            input_piece.has_moved = true
-        }else if(input_piece.name === "King") {
-            input_piece.has_moved = true
-        }
 
         this.defineMoves()
     }

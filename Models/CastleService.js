@@ -44,7 +44,7 @@ class CastleService {
             const hasRookMoved = Pieces.pieces.find(piece => 
                 piece.name === "Rook" && 
                 piece.color === color&& 
-                piece?.castle_index === "short").has_moved
+                piece?.castle_index === "short")?.has_moved
 
             if(areSquaresFreeAndSafe && !hasRookMoved) {
                 if(color === "white") {
@@ -70,7 +70,7 @@ class CastleService {
             const hasRookMoved = Pieces.pieces.find(piece => 
                 piece.name === "Rook" && 
                 piece.color === color && 
-                piece?.castle_index === "long").has_moved
+                piece?.castle_index === "long")?.has_moved
 
             if(areSquaresFreeAndSafe && !hasRookMoved) {
                 if(color === "white") {
