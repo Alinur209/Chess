@@ -25,7 +25,7 @@ class MovesManagerService {
                 attacker = attacking_piece.coordinates
                 break
             case "Knight":
-                attacker = 'N' + to
+                attacker = 'N' + attacking_piece.coordinates
                 break
             default:
                 attacker = attacking_piece.name[0] + attacking_piece.coordinates
@@ -36,7 +36,7 @@ class MovesManagerService {
                 target = target_piece.coordinates
                 break
             case "Knight":
-                target = 'N' + to
+                target = 'N' + target_piece.coordinates
                 break
             default:
                 target = target_piece.name[0] + target_piece.coordinates
