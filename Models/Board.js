@@ -1,4 +1,5 @@
 import Utiles from "../Utiles/utiles.js"
+import MovesManagerService from "./MovesManagerService.js"
 import Pieces from "./Pieces.js"
 
 class Board {
@@ -87,16 +88,18 @@ class Board {
                 // JUST MOVE
                 if(coordinates.length === 2) {
                     Pieces.move_piece(this.move[0], coordinates)
-
+                    MovesManagerService.push_just_move(this.move[0], coordinates)
                 // ATTACK
                 }else if(coordinates.length === 3) {
                     this.eatenPieces.push(target_piece)
+                    MovesManagerService.push_capture_move(this.move[0], target_piece)
                     Pieces.capture_piece(this.move[0], target_piece)
                 }
 
                 this.move = []
                 this.moveOf = this.moveOf === "white" ? "black": "white"
                 this.removeMoveMarks()
+
             // SECOND CLICK - SELECTING OTHER PIECE
             }else if(target_piece && target_piece.color === this.moveOf) {
                 this.move[0] = target_piece
