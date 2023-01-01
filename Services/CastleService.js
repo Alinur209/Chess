@@ -9,7 +9,6 @@ class CastleService {
     static areSquaresFreeAndSafe(input_coordinates) {
         let free = true
         input_coordinates.forEach(coordinates => {
-            console.log(coordinates)
             if(Board.getSquare(coordinates).getAttribute("abs_coordinates").length === 3) {
                 free = false
             }

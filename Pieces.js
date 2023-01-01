@@ -151,7 +151,6 @@ class Pieces {
             }
         })
     }
-
 }
 
 export default Pieces

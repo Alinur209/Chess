@@ -5,6 +5,7 @@ import Bishop from "../Models/Bishop.js"
 import Knight from "../Models/Knight.js"
 import Queen from "../Models/Queen.js"
 import Rook from "../Models/Rook.js"
+import KingService from "./KingService.js"
 
 
 class PromotionService {
@@ -54,12 +55,24 @@ class PromotionService {
                             promoted_piece = new Queen("Queen", promoted_target.src, color, coordinates, 8)
                     } 
                     
-                    const pawn_index = Pieces.pieces.findIndex(item => item.coordinates ===coordinates)
-                    Pieces.pieces.splice(pawn_index, 1, promoted_piece)
-                    const square = Board.getSquare(coordinates)
-                    square.setAttribute("abs_coordinates", (promoted_piece.name === "Knight" ? "N":promoted_piece.name[0]) + coordinates)
-                    square.setAttribute("piece_color", promoted_piece.color)
-                    square.style.backgroundImage = `url(${promoted_piece.img})`
+                    new Promise((resolve, reject) => {
+
+                        const pawn_index = Pieces.pieces.findIndex(item => item.coordinates === coordinates)
+                        Pieces.pieces.splice(pawn_index, 1, promoted_piece)
+
+                        const square = Board.getSquare(coordinates)
+                        square.setAttribute("abs_coordinates", (promoted_piece.name === "Knight" ? "N":promoted_piece.name[0]) + coordinates)
+                        square.setAttribute("piece_color", promoted_piece.color)
+                        square.style.backgroundImage = `url(${promoted_piece.img})`
+                        resolve(Pieces.pieces)
+                    })
+                    .then(pieces => {
+                        pieces.forEach(piece => piece.name === "King" && piece.defineRange())
+                        pieces.forEach(piece => piece.defineMoves())
+                        KingService.serveKing(pieces)
+                        
+                    })
+                    
                     modal.remove()
             })
             }

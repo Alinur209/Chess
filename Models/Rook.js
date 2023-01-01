@@ -3,6 +3,7 @@ import Board from "../Board.js";
 import KingService from "../Services/KingService.js";
 import Piece from "./Piece.js";
 import Pieces from "../Pieces.js";
+import MocMoveService from "../Services/MocBoardService.js";
 
 class Rook extends Piece {
     has_moved = false
@@ -140,6 +141,8 @@ class Rook extends Piece {
                 }   
             }
         }
+
+        MocMoveService.generateBoard(Pieces.pieces)
 
         if(KingService.isSafeKing() || KingService.get_current_king().color !== this.color) {
             this.moves = [...top, ...bottom, ...left, ...right]

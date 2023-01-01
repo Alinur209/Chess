@@ -6,7 +6,7 @@ import Pieces from "../Pieces.js";
 
 class Bishop extends Piece {
 
-defineMoves() {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+defineMoves(is_mock) { 
         const input_x = this.coordinates[0]
         const input_y = Number(this.coordinates[1])
         const input_piece_color = this.color
