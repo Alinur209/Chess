@@ -71,40 +71,42 @@ class Board {
         const board = document.getElementById("board")
 
         board.addEventListener("click", e => {
-            const coordinates = e.target.getAttribute("abs_coordinates")
-            const target_piece = Pieces.findPiece(coordinates?.slice(1,3))
-
-            // FIRST CLICK
-            if(coordinates.length === 3 && !this.move.length) {
-
-                if(target_piece.color === this.moveOf) {
-                    this.move.push(target_piece)
+            const coordinates = e.target.getAttribute("abs_coordinates") 
+            
+            if(coordinates) {
+                const target_piece = Pieces.findPiece(coordinates?.slice(1,3))
+                // FIRST CLICK
+                if(coordinates.length === 3 && !this.move.length) {
+    
+                    if(target_piece.color === this.moveOf) {
+                        this.move.push(target_piece)
+                        this.showMoveMarks()
+                    }
+    
+                // SECOND CLICK - MOVE || ATTACK
+                }else if(this.move.length && this.move[0].moves.includes(coordinates)) {
+    
+                    // JUST MOVE
+                    if(coordinates.length === 2) {
+                        Pieces.move_piece(this.move[0], coordinates)
+                        MovesManagerService.push_just_move(this.move[0], coordinates)
+                    // ATTACK
+                    }else if(coordinates.length === 3) {
+                        this.eatenPieces.push(target_piece)
+                        MovesManagerService.push_capture_move(this.move[0], target_piece)
+                        Pieces.capture_piece(this.move[0], target_piece)
+                    }
+    
+                    this.move = []
+                    this.moveOf = this.moveOf === "white" ? "black": "white"
+                    this.removeMoveMarks()
+    
+                // SECOND CLICK - SELECTING OTHER PIECE
+                }else if(target_piece && target_piece.color === this.moveOf) {
+                    this.move[0] = target_piece
+                    this.removeMoveMarks()
                     this.showMoveMarks()
                 }
-
-            // SECOND CLICK - MOVE || ATTACK
-            }else if(this.move.length && this.move[0].moves.includes(coordinates)) {
-
-                // JUST MOVE
-                if(coordinates.length === 2) {
-                    Pieces.move_piece(this.move[0], coordinates)
-                    MovesManagerService.push_just_move(this.move[0], coordinates)
-                // ATTACK
-                }else if(coordinates.length === 3) {
-                    this.eatenPieces.push(target_piece)
-                    MovesManagerService.push_capture_move(this.move[0], target_piece)
-                    Pieces.capture_piece(this.move[0], target_piece)
-                }
-
-                this.move = []
-                this.moveOf = this.moveOf === "white" ? "black": "white"
-                this.removeMoveMarks()
-
-            // SECOND CLICK - SELECTING OTHER PIECE
-            }else if(target_piece && target_piece.color === this.moveOf) {
-                this.move[0] = target_piece
-                this.removeMoveMarks()
-                this.showMoveMarks()
             }
         })
     }

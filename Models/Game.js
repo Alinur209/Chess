@@ -4,11 +4,13 @@ import Pieces from "./Pieces.js"
 class Game {
     static revealTheWinner(player) {
         setTimeout(() => {
+            alert(player + " won!")
+
             const board = document.getElementById("board")
             board.innerHTML = ''
             Pieces.pieces = []
             this.restart()
-        }, 3000);
+        }, 1000);
     }
     
     static restart() {
