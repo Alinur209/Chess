@@ -1,7 +1,7 @@
-import Utiles from "../../Utiles/utiles.js";
+import Utiles from "../Utiles/utiles.js";
 import Board from "../Board.js";
-import KingService from "../KingService.js";
-import Piece from "../Piece.js";
+import KingService from "../Services/KingService.js";
+import Piece from "./Piece.js";
 import Pieces from "../Pieces.js";
 
 class Bishop extends Piece {

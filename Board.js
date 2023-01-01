@@ -1,5 +1,5 @@
-import Utiles from "../Utiles/utiles.js"
-import MovesManagerService from "./MovesManagerService.js"
+import Utiles from "./Utiles/utiles.js"
+import MovesManagerService from "./Services/MovesManagerService.js"
 import Pieces from "./Pieces.js"
 
 class Board {
@@ -10,6 +10,7 @@ class Board {
 
     static draw() {
         const board = document.getElementById("board")
+        this.moveOf = "white"
 
         let isOdd = true
         let y_index = 8

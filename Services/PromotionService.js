@@ -1,11 +1,10 @@
 import Utiles from "../Utiles/utiles.js"
-import Board from "./Board.js"
-import KingService from "./KingService.js"
-import Pieces from "./Pieces.js"
-import Bishop from "./Pieces/Bishop.js"
-import Knight from "./Pieces/Knight.js"
-import Queen from "./Pieces/Queen.js"
-import Rook from "./Pieces/Rook.js"
+import Board from "../Board.js"
+import Pieces from "../Pieces.js"
+import Bishop from "../Models/Bishop.js"
+import Knight from "../Models/Knight.js"
+import Queen from "../Models/Queen.js"
+import Rook from "../Models/Rook.js"
 
 
 class PromotionService {

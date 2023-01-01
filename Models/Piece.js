@@ -1,4 +1,4 @@
-import Pieces from "./Pieces.js"
+import Pieces from "../Pieces.js"
 
 class Piece {
     constructor(name, img, color, coordinates, value) {

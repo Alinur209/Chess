@@ -1,2 +1,2 @@
-import Game from "./Models/Game.js";
+import Game from "./Game.js";
 Game.setup()

@@ -1,4 +1,4 @@
-import Piece from "../Piece.js";
+import Piece from "./Piece.js";
 import Bishop from "./Bishop.js";
 import Rook from "./Rook.js";
 

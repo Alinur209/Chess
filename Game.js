@@ -5,12 +5,10 @@ class Game {
     static revealTheWinner(player) {
         setTimeout(() => {
             alert(player + " won!")
-
-            const board = document.getElementById("board")
-            board.innerHTML = ''
+            document.getElementById("board").innerHTML = ''
             Pieces.pieces = []
             this.restart()
-        }, 1000);
+        }, 500)
     }
     
     static restart() {

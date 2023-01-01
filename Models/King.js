@@ -1,7 +1,7 @@
-import Utiles from "../../Utiles/utiles.js";
+import Utiles from "../Utiles/utiles.js";
 import Board from "../Board.js";
-import CastleService from "../CastleService.js";
-import Piece from "../Piece.js";
+import CastleService from "../Services/CastleService.js";
+import Piece from "./Piece.js";
 import Pieces from "../Pieces.js";
 
 class King extends Piece {

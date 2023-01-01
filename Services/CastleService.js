@@ -1,16 +1,17 @@
-import Board from "./Board.js";
+import Board from "../Board.js";
 import KingService from "./KingService.js";
 import MovesManagerService from "./MovesManagerService.js";
-import Pieces from "./Pieces.js";
+import Pieces from "../Pieces.js";
 
 
 class CastleService {
 
     static areSquaresFreeAndSafe(input_coordinates) {
-        let free = false
+        let free = true
         input_coordinates.forEach(coordinates => {
-            if(Board.getSquare(coordinates).getAttribute("abs_coordinates").length === 2) {
-                free = true
+            console.log(coordinates)
+            if(Board.getSquare(coordinates).getAttribute("abs_coordinates").length === 3) {
+                free = false
             }
         })
 
@@ -36,7 +37,7 @@ class CastleService {
         if(!KingService.get_current_king().has_moved) {
             const areSquaresFreeAndSafe = this.areSquaresFreeAndSafe(
                 color === "white" ?
-                    ["f1", "g2"]
+                    ["f1", "g1"]
                 :
                     ["f8", "g8"]
             )
