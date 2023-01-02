@@ -1,12 +1,12 @@
 import Utiles from "../Utiles/utiles.js";
-import Board from "../Board.js";
+import Board from "../Services/Board.js";
 import KingService from "../Services/KingService.js";
 import Piece from "./Piece.js";
-import Pieces from "../Pieces.js";
+import Pieces from "../Services/Pieces.js";
 
 class Bishop extends Piece {
 
-defineMoves(is_mock) { 
+defineMoves() { 
         const input_x = this.coordinates[0]
         const input_y = Number(this.coordinates[1])
         const input_piece_color = this.color

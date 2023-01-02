@@ -1,9 +1,9 @@
 import Utiles from "../Utiles/utiles.js";
-import Board from "../Board.js";
+import Board from "../Services/Board.js";
 import Game from "../Game.js";
 import KingService from "../Services/KingService.js";
 import Piece from "./Piece.js";
-import Pieces from "../Pieces.js";
+import Pieces from "../Services/Pieces.js";
 
 class Pawn extends Piece {
     attack_moves = []

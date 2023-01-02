@@ -1,5 +1,5 @@
-import Utiles from "./Utiles/utiles.js"
-import MovesManagerService from "./Services/MovesManagerService.js"
+import Utiles from "../Utiles/utiles.js"
+import MovesManagerService from "./MovesManagerService.js"
 import Pieces from "./Pieces.js"
 
 class Board {

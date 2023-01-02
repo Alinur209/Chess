@@ -1,7 +1,7 @@
-import Board from "../Board.js";
+import Board from "./Board.js";
 import KingService from "./KingService.js";
 import MovesManagerService from "./MovesManagerService.js";
-import Pieces from "../Pieces.js";
+import Pieces from "./Pieces.js";
 
 
 class CastleService {

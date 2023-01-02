@@ -1,6 +1,6 @@
 import Utiles from "../Utiles/utiles.js"
-import Board from "../Board.js"
-import Pieces from "../Pieces.js"
+import Board from "./Board.js"
+import Pieces from "./Pieces.js"
 
 
 class KingService {

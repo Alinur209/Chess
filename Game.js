@@ -1,5 +1,5 @@
-import Board from "./Board.js"
-import Pieces from "./Pieces.js"
+import Board from "./Services/Board.js"
+import Pieces from "./Services/Pieces.js"
 
 class Game {
     static revealTheWinner(player) {
