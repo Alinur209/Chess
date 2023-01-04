@@ -38,7 +38,7 @@ class Knight extends Piece {
 
                 if(abs_coordinates[0] === "K") {
                     const king = KingService.get_opposite_king()
-                    king.pushAtackingMoves("N" + this.coordinates)
+                    king.pushAtackingMoves(["N" + this.coordinates])
                 }
     
                 const target_square = Board.getSquareWithPiece(abs_coordinates)

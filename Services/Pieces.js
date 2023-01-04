@@ -16,10 +16,10 @@ class Pieces {
 
     static initPieces() {
         // PAWNS
-        for(let i = 0; i < 8; i++) {
-            this.pieces.push(new Pawn("Pawn", "..//media/pieces/pawn-b.png", "black", Utiles.x_indexes[i] + 7, 1))
-            this.pieces.push(new Pawn("Pawn", "../media/pieces/pawn-w.png", "white", Utiles.x_indexes[i] + 2, 1))
-        }
+        // for(let i = 0; i < 8; i++) {
+        //     this.pieces.push(new Pawn("Pawn", "..//media/pieces/pawn-b.png", "black", Utiles.x_indexes[i] + 7, 1))
+        //     this.pieces.push(new Pawn("Pawn", "../media/pieces/pawn-w.png", "white", Utiles.x_indexes[i] + 2, 1))
+        // }
 
         this.pieces.push(
             // KNIGHT
@@ -32,17 +32,17 @@ class Pieces {
             new Bishop("Bishop", "../media/pieces/bishop-b.png", "black", Utiles.x_indexes[5] + 8, 3),
             new Bishop("Bishop", "../media/pieces/bishop-b.png", "black", Utiles.x_indexes[2] + 8, 3),
             new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[5] + 1, 3),
-            new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[2] + 1, 3),
+            new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[5] + 3, 3),
 
             // ROOK
             new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[0] + 8, 5),
-            new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[7] + 8, 5),
+            new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[4] + 6, 5),
             new Rook("Rook", "../media/pieces/rook-w.png", "white", Utiles.x_indexes[0] + 1, 5),
             new Rook("Rook", "../media/pieces/rook-w.png", "white", Utiles.x_indexes[7] + 1, 5),
             
             // QUEEN
             new Queen("Queen", "../media/pieces/queen-b.png", "black", Utiles.x_indexes[3] + 8, 8),
-            new Queen("Queen", "../media/pieces/queen-w.png", "white", Utiles.x_indexes[3] + 1, 8),
+            new Queen("Queen", "../media/pieces/queen-w.png", "white", Utiles.x_indexes[4] + 2, 8),
 
             // KING
             new King("King", "../media/pieces/king-w.png", "white", Utiles.x_indexes[4] + 1, null),
@@ -117,7 +117,8 @@ class Pieces {
             if(square.getAttribute("coordinates") === to) {
                 square.style.backgroundImage = `url(${input_piece.img})`
                 square.style.cursor = "pointer"
-                square.setAttribute("abs_coordinates", input_piece.name !== "Knight" ? input_piece.name[0] + input_piece.coordinates : "N" + input_piece.coordinates)
+                square.setAttribute("abs_coordinates", input_piece.name !== "Knight" ? 
+                input_piece.name[0] + input_piece.coordinates : "N" + input_piece.coordinates)
                 square.setAttribute("piece_color", input_piece.color) 
             }
         })
@@ -136,14 +137,14 @@ class Pieces {
 
     static defineMoves() {
         new Promise(resolve => {
-            this.pieces.forEach(piece => piece.name === "King" && piece.defineRange() &&  piece.resetAttackers())
-            this.pieces.forEach(piece => piece.defineMoves())
+            this.pieces.forEach(piece => piece.name === "King" && piece.defineRange() && piece.resetAttackers())
+            this.pieces.forEach(piece => piece.defineMoves({type: "Game", Board}))
             resolve(this.pieces)
         })
         .then(pieces => {
             KingService.serveKing(pieces)
             this.pieces.forEach(piece => piece.name === "King" && piece.defineRange())
-            this.pieces.forEach(piece => piece.defineMoves())
+            this.pieces.forEach(piece => piece.defineMoves({type: "Game", Board}))
         })
         .finally(() => {
             if(KingService.is_mate()) {

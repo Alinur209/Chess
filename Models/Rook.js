@@ -1,9 +1,9 @@
 import Utiles from "../Utiles/utiles.js";
-import Board from "../Services/Board.js";
+// import Board from "../Services/Board.js";
 import KingService from "../Services/KingService.js";
 import Piece from "./Piece.js";
 import Pieces from "../Services/Pieces.js";
-import MocMoveService from "../Services/MocBoardService.js";
+import MocBoardService from "../Services/MocBoardService.js";
 
 class Rook extends Piece {
     has_moved = false
@@ -25,11 +25,14 @@ class Rook extends Piece {
         }
     }
 
-    defineMoves() {
+    defineMoves({type, Board}) {
+        
         const x = this.coordinates[0]
         const y = Number(this.coordinates[1])
 
         const input_piece_color = this.color
+
+
 
         if(!this.castle_index) {
             this.define_castle_index()
@@ -50,39 +53,63 @@ class Rook extends Piece {
             }
 
             const abs_coordinates = Board.getAbsCoordinates(x + Math.abs(i)) 
+            
+            if(abs_coordinates === "e2") {
+                console.log(type, this, abs_coordinates)
+            }
 
             if(i >= y) {
                 if(abs_coordinates.length === 2) {
-                    top.push(abs_coordinates)
+                    if(type === "Moc") {
+                        top.push(abs_coordinates)
+                    }else if(MocBoardService.isSafeMove(this, abs_coordinates)) {
+                        top.push(abs_coordinates)
+                    }else break
                 }else {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
-                        if(abs_coordinates[0] === "K") {
+                        if(type === "Moc") {
+                            top.push(abs_coordinates)
+                        }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                            top.push(abs_coordinates)
+                        }else break 
+                        
+                        if(type === "Game" && abs_coordinates[0] === "K") {
                             const king = KingService.get_opposite_king()
                             king.pushAtackingMoves([...top, (this.name[0] + this.coordinates)])
                         }
-                        top.push(abs_coordinates)
+
                     }else {
-                        Pieces.protectPiece(target_piece)
+                        type === "Game" && Pieces.protectPiece(target_piece)
                     }
 
                     break
                 }
             }else {
                 if(abs_coordinates.length === 2) {
-                    bottom.push(abs_coordinates)
+                    if(type === "Moc") {
+                        bottom.push(abs_coordinates)
+                    }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                        bottom.push(abs_coordinates)
+                    }else break
+
                 }else {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
-                        if(abs_coordinates[0] === "K") {
+                        if(type === "Moc") {
+                            bottom.push(abs_coordinates)
+                        }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                            bottom.push(abs_coordinates)
+                        }else break
+                        
+                        if(type === "Game" && abs_coordinates[0] === "K") {
                             const king = KingService.get_opposite_king()
                             king.pushAtackingMoves([...bottom, (this.name[0] + this.coordinates)])
                         }
-                        bottom.push(abs_coordinates)
                     }else {
-                        Pieces.protectPiece(target_piece)
+                        type === "Game" && Pieces.protectPiece(target_piece)
                     }
 
 
@@ -106,36 +133,54 @@ class Rook extends Piece {
 
             if(i >= index) {
                 if(abs_coordinates.length === 2) {
-                    right.push(abs_coordinates)
+                    if(type === "Moc") {
+                        right.push(abs_coordinates)
+                    }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                        right.push(abs_coordinates)
+                    }else break
                 }else {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
-                        if(abs_coordinates[0] === "K") {
+                        if(type === "Game" && abs_coordinates[0] === "K") {
                             const king = KingService.get_opposite_king()
                             king.pushAtackingMoves([...right, (this.name[0] + this.coordinates)])
                         }
-                        right.push(abs_coordinates)
+                        if(type === "Moc") {
+                            right.push(abs_coordinates)
+                        }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                            right.push(abs_coordinates)
+                        }else break
+
                     }else {
-                        Pieces.protectPiece(target_piece)
+                        type === "Game" && Pieces.protectPiece(target_piece)
                     }
- 
                     break
                 }
             }else {
                 if(abs_coordinates.length === 2) {
-                    left.push(abs_coordinates)
+                    if(type === "Moc") {
+                        left.push(abs_coordinates)
+                    }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                        left.push(abs_coordinates)
+                    }else break
                 }else {
                     const target_piece = Board.getSquareWithPiece(abs_coordinates)
 
                     if(input_piece_color !== target_piece.getAttribute("piece_color")) {
-                        if(abs_coordinates[0] === "K") {
+                        if(type === "Moc") {
+                            left.push(abs_coordinates)
+                        }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                            left.push(abs_coordinates)
+                        }else break
+
+                        if(type === "Game" &&abs_coordinates[0] === "K") {
                             const king = KingService.get_opposite_king()
                             king.pushAtackingMoves([...left, (this.name[0] + this.coordinates)])
                         }
-                        left.push(abs_coordinates)
+
                     }else {
-                        Pieces.protectPiece(target_piece)
+                        type === "Game" && Pieces.protectPiece(target_piece)
                     }
                     i = index
                 }   
@@ -143,15 +188,23 @@ class Rook extends Piece {
         }
 
 
-        if(KingService.isSafeKing() || KingService.get_current_king().color !== this.color) {
-            this.moves = [...top, ...bottom, ...left, ...right]
-            return this.moves
-        }else {
-            const ally_king = KingService.get_current_king()
-            const moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
 
+        if(type === "Game") {
+            if(KingService.isSafeKing() || KingService.get_current_king().color !== this.color) {
+                this.moves = [...top, ...bottom, ...left, ...right]
+                return this.moves
+            }else {
+                const ally_king = KingService.get_current_king()
+                const moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
+    
+                this.moves = moves
+                return moves
+            }
+        }else {
+
+            const moves = [...top, ...bottom, ...left, ...right]
             this.moves = moves
-            return moves
+            // console.log(this)
         }
     }
 }

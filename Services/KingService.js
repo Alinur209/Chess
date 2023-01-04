@@ -31,12 +31,25 @@ class KingService {
 
     static is_mate() {
         const current_king = this.get_current_king()
+        let result = null
 
         if(!current_king.is_safe) {
             const may_king_be_protected = Pieces.pieces.some(piece => piece.name!=="King" && piece.color === current_king.color && Boolean(piece.moves.length))
             const may_king_escape = Boolean(current_king.moves.length)
-            return !(Boolean(may_king_be_protected) || may_king_escape)
+
+            if(
+                current_king.attacking_stream.some(item => item.some(nested_item => nested_item.includes("Q"))) &&
+                current_king.attacking_stream.some(item => item.some(nested_item => nested_item.includes('N'))) &&
+                !may_king_escape
+            ) {
+                console.log("Mate")
+                return true
+            }
+
+            result = !(Boolean(may_king_be_protected) || may_king_escape)
         }
+
+        return result
     }
 }
 
