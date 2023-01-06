@@ -14,8 +14,8 @@ class King extends Piece {
         let result = []
 
         result.push(...CastleService.getMoves(this.color))
-
-        this.range.all.forEach(coordinates => {
+        
+        this.range.all?.forEach(coordinates => {
             const abs_coordinates = Board.getAbsCoordinates(coordinates)
 
             if(abs_coordinates.length === 3) {
@@ -101,6 +101,7 @@ class King extends Piece {
         range.all = [...range.diagonals_pair_1, ...range.diagonals_pair_2, ...range.horizontal, ...range.vertical]
 
         this.range = range
+
         return this.range
     }
 

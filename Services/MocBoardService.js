@@ -39,7 +39,6 @@ class MocBoardService {
             })
         })
 
-
         this.moc_board = moc_board
     }
 
@@ -139,9 +138,6 @@ class MocBoardService {
     static isSafeMove(piece, move) {
         let result = true
 
-        // piece Qe2
-        // move f2
-    
             const current_king = KingService.get_current_king()
 
             if(piece.color === current_king.color) {
@@ -150,34 +146,25 @@ class MocBoardService {
 
                 const new_moc_pieces = this.make_moc_move(piece, move)
                 
-                if(piece.coordinates === "e2" && move === "f2") {
-                        // console.log(new_moc_pieces)
-                        // console.log(this.moc_board)
-                }
-
                 new_moc_pieces.forEach(piece => {   
-                    if(piece.color !== current_king.color && piece.name === "Rook") {
-                        // console.log(this.moc_board)
-                        piece.moves = []
+                    if(piece.color !== current_king.color) {
+                    console.log(piece)
                         piece.defineMoves({type: "Moc", Board: this})
-                        // console.log(piece)
                     }
                 })
 
-                // if(piece.coordinates === "e2" && move === "f2") {
-                //     console.log(new_moc_pieces)
-                // }
-
-                // console.log('new moc pieces after defining moves: ', new_moc_pieces)
-                
-                if(this.moc_pieces.some(piece => piece.moves.includes("K" + current_king.coordinates))) {
+                if(this.moc_pieces.some(item => {
+                    if(
+                        item.moves.includes("K" + current_king.coordinates) && 
+                        (item.name === "Knight" ? "N":item.name[0]) + item.coordinates !== move
+                    ) {
+                        return true
+                    }
+                })) {
                     result = false
                 }
-
-                // console.log(piece, move);
-                // console.log(this.moc_pieces)
-
             }
+
 
         return result
     }

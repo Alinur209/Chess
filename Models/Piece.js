@@ -9,6 +9,7 @@ class Piece {
         this.moves = []
     }
     
+    is_pinned = false
     is_protected = false
 }
 

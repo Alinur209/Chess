@@ -32,8 +32,6 @@ class Rook extends Piece {
 
         const input_piece_color = this.color
 
-
-
         if(!this.castle_index) {
             this.define_castle_index()
         }
@@ -155,6 +153,7 @@ class Rook extends Piece {
                     }else {
                         type === "Game" && Pieces.protectPiece(target_piece)
                     }
+                    
                     break
                 }
             }else {
@@ -187,24 +186,25 @@ class Rook extends Piece {
             }
         }
 
-
-
         if(type === "Game") {
+
             if(KingService.isSafeKing() || KingService.get_current_king().color !== this.color) {
                 this.moves = [...top, ...bottom, ...left, ...right]
                 return this.moves
-            }else {
+            }else { 
                 const ally_king = KingService.get_current_king()
                 const moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
-    
                 this.moves = moves
                 return moves
             }
-        }else {
+
+        }else if(type === "Moc"){
 
             const moves = [...top, ...bottom, ...left, ...right]
             this.moves = moves
-            // console.log(this)
+            console.log(type)
+            return this.moves
+            
         }
     }
 }
