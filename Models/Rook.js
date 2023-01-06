@@ -32,7 +32,7 @@ class Rook extends Piece {
 
         const input_piece_color = this.color
 
-        if(!this.castle_index) {
+        if(type === 'Game' && !this.castle_index) {
             this.define_castle_index()
         }
 
@@ -199,12 +199,7 @@ class Rook extends Piece {
             }
 
         }else if(type === "Moc"){
-
-            const moves = [...top, ...bottom, ...left, ...right]
-            this.moves = moves
-            console.log(type)
-            return this.moves
-            
+            this.moves = [...top, ...bottom, ...left, ...right]
         }
     }
 }

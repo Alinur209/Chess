@@ -4,10 +4,13 @@ import Rook from "./Rook.js";
 
 class Queen extends Piece {
     defineMoves(config) {
-        const bishop_moves = new Bishop("Bishop", "", this.color, this.coordinates, 5).defineMoves(config)
-        const rook_moves = new Rook("Rook", "", this.color, this.coordinates, 5).defineMoves(config)
+        const bishop = new Bishop("Bishop", "", this.color, this.coordinates, 5)
+        const rook = new Rook("Rook", "", this.color, this.coordinates, 5)
 
-        this.moves = [...bishop_moves, ...rook_moves]
+        bishop.defineMoves(config)
+        rook.defineMoves(config)
+
+        this.moves = [...bishop.moves, ...rook.moves]
         return this.moves
     }
 }
