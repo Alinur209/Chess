@@ -51,10 +51,6 @@ class Rook extends Piece {
             }
 
             const abs_coordinates = Board.getAbsCoordinates(x + Math.abs(i)) 
-            
-            if(abs_coordinates === "e2") {
-                console.log(type, this, abs_coordinates)
-            }
 
             if(i >= y) {
                 if(abs_coordinates.length === 2) {

@@ -4,13 +4,14 @@ import Game from "../Game.js";
 import KingService from "../Services/KingService.js";
 import Piece from "./Piece.js";
 import Pieces from "../Services/Pieces.js";
+import MocBoardService from "../Services/MocBoardService.js";
 
 class Pawn extends Piece {
     attack_moves = []
     front_moves = []
     attack_range = []
 
-    get_attack_moves() {
+    get_attack_moves({type, Board}) {
         const x = this.coordinates[0]
         const y = Number(this.coordinates[1])
         let result = []
@@ -96,12 +97,20 @@ class Pawn extends Piece {
             }
         }
 
+        result = [...result].filter(move => {
+            if(type === "Moc") {
+                return move
+            }else if(MocBoardService.isSafeMove(this, move) ) {
+                return move
+            }
+        })
+
         this.attack_range = attack_range
         this.attack_moves = result
         return result
     }   
 
-    get_front_moves() {
+    get_front_moves({type, Board}) {
         const x = this.coordinates[0]
         const y = Number(this.coordinates[1])
         let result = []
@@ -127,24 +136,37 @@ class Pawn extends Piece {
             }
         }
 
+        result = [...result].filter(move => {
+            if(type === "Moc") {
+                return move
+            }else if(MocBoardService.isSafeMove(this, move) ) {
+                return move
+            }
+        })
+
         this.front_moves = result
         return result
     }
 
-    defineMoves() {
-        if(KingService.isSafeKing(Pieces.pieces) || KingService.get_current_king().color !== this.color) {
-            this.get_attack_moves()
-            this.get_front_moves()
-            this.moves = [...this.attack_moves, ...this.front_moves]
-            return this.moves
-        }else {
-            const ally_king = KingService.get_current_king()
-            this.get_attack_moves()
-            this.get_front_moves()
-            const moves = [...this.attack_moves, ...this.front_moves].filter(move => ally_king.attacking_stream.flat().includes(move))
+    defineMoves(condig) {
+        this.get_attack_moves(condig)
+        this.get_front_moves(condig)
 
+        const moves = [...this.attack_moves, ...this.front_moves]
+
+        if(condig.type === "Game") {
+            if(KingService.isSafeKing(Pieces.pieces) || KingService.get_current_king().color !== this.color) {
+                this.moves = moves
+                return this.moves
+            }else {
+                const ally_king = KingService.get_current_king()
+                const legal_moves = moves.filter(move => ally_king.attacking_stream.flat().includes(move))
+    
+                this.moves = legal_moves
+                return moves
+            }
+        }else {
             this.moves = moves
-            return moves
         }
     }
 }

@@ -15,6 +15,13 @@ class MocBoardService {
     static moc_board = []
     static moc_pieces = []
 
+    static getSquare(coordinates) {
+        const item = this.moc_board.find(item => item.coordinates === coordinates)
+        const element = Utiles.createElement("div")
+        element.setAttribute("abs_coordinates", item.abs_coordinates)
+        element.setAttribute("piece_color", item.piece_color)
+        return element 
+    }
     static getAbsCoordinates(coordinates) {
         return this.moc_board.find(item => item.coordinates === coordinates).abs_coordinates
     }
@@ -148,7 +155,6 @@ class MocBoardService {
                 
                 new_moc_pieces.forEach(piece => {   
                     if(piece.color !== current_king.color) {
-                    console.log(piece)
                         piece.defineMoves({type: "Moc", Board: this})
                     }
                 })

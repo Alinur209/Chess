@@ -16,10 +16,10 @@ class Pieces {
 
     static initPieces() {
         // PAWNS
-        // for(let i = 0; i < 8; i++) {
-        //     this.pieces.push(new Pawn("Pawn", "..//media/pieces/pawn-b.png", "black", Utiles.x_indexes[i] + 7, 1))
-        //     this.pieces.push(new Pawn("Pawn", "../media/pieces/pawn-w.png", "white", Utiles.x_indexes[i] + 2, 1))
-        // }
+        for(let i = 0; i < 8; i++) {
+            this.pieces.push(new Pawn("Pawn", "..//media/pieces/pawn-b.png", "black", Utiles.x_indexes[i] + 7, 1))
+            this.pieces.push(new Pawn("Pawn", "../media/pieces/pawn-w.png", "white", Utiles.x_indexes[i] + 2, 1))
+        }
 
         this.pieces.push(
             // KNIGHT
@@ -32,7 +32,7 @@ class Pieces {
             new Bishop("Bishop", "../media/pieces/bishop-b.png", "black", Utiles.x_indexes[5] + 8, 3),
             new Bishop("Bishop", "../media/pieces/bishop-b.png", "black", Utiles.x_indexes[2] + 8, 3),
             new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[5] + 1, 3),
-            new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[5] + 3, 3),
+            new Bishop("Bishop", "../media/pieces/bishop-w.png", "white", Utiles.x_indexes[2] + 1, 3),
 
             // ROOK
             new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[0] + 8, 5),
@@ -42,7 +42,7 @@ class Pieces {
             
             // QUEEN
             new Queen("Queen", "../media/pieces/queen-b.png", "black", Utiles.x_indexes[3] + 8, 8),
-            new Queen("Queen", "../media/pieces/queen-w.png", "white", Utiles.x_indexes[4] + 2, 8),
+            new Queen("Queen", "../media/pieces/queen-w.png", "white", Utiles.x_indexes[3] + 1, 8),
 
             // KING
             new King("King", "../media/pieces/king-w.png", "white", Utiles.x_indexes[4] + 1, null),

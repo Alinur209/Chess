@@ -30,7 +30,6 @@ class Knight extends Piece {
             Utiles.x_indexes[x_index + 2] + (y - 1),
         ]
 
-        console.log(this.coordinates, [...range_1, ...range_2])
         const result = [...range_1, ...range_2].filter(item => item && Number(item.slice(1)) >= 1 && Number(item.slice(1)) <= 8 ).map(item => {
             const abs_coordinates = Board.getAbsCoordinates(item)
 
