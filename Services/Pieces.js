@@ -133,6 +133,7 @@ class Pieces {
     static capture_piece(attacking_piece, target_piece) {
         this.remove_piece(target_piece)
         this.move_piece(attacking_piece, target_piece.coordinates)
+        Board.setEatenPieces()
     }
 
     static defineMoves() {
