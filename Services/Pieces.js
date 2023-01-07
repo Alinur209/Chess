@@ -36,7 +36,7 @@ class Pieces {
 
             // ROOK
             new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[0] + 8, 5),
-            new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[4] + 6, 5),
+            new Rook("Rook", "../media/pieces/rook-b.png", "black", Utiles.x_indexes[7] + 8, 5),
             new Rook("Rook", "../media/pieces/rook-w.png", "white", Utiles.x_indexes[0] + 1, 5),
             new Rook("Rook", "../media/pieces/rook-w.png", "white", Utiles.x_indexes[7] + 1, 5),
             

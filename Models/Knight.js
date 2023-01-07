@@ -30,7 +30,9 @@ class Knight extends Piece {
             Utiles.x_indexes[x_index + 2] + (y - 1),
         ]
 
-        const result = [...range_1, ...range_2].filter(item => item && Number(item.slice(1)) >= 1 && Number(item.slice(1)) <= 8 ).map(item => {
+        const result = [...range_1, ...range_2]
+        .filter(item => item && Number(item.slice(1)) >= 1 && Number(item.slice(1)) <= 8 )
+        .map(item => {
             const abs_coordinates = Board.getAbsCoordinates(item)
 
             if(abs_coordinates?.length === 2) {
@@ -45,17 +47,14 @@ class Knight extends Piece {
                     const king = KingService.get_opposite_king()
                     king.pushAtackingMoves(["N" + this.coordinates])
                 }
-
-                if(type === "Moc") {
-                    return item
-                }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
-                    return item
-                } 
-    
                 const target_square = Board.getSquareWithPiece(abs_coordinates)
 
                 if(this.color !== target_square.getAttribute("piece_color")) {
-                    return abs_coordinates
+                    if(type === "Moc") {
+                        return abs_coordinates
+                    }else if(MocBoardService.isSafeMove(this, abs_coordinates) ) {
+                        return abs_coordinates
+                    }
                 }else {
                     type==="Game" && Pieces.protectPiece(target_square)
                 }

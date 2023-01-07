@@ -22,6 +22,7 @@ class MocBoardService {
         element.setAttribute("piece_color", item.piece_color)
         return element 
     }
+    
     static getAbsCoordinates(coordinates) {
         return this.moc_board.find(item => item.coordinates === coordinates).abs_coordinates
     }
@@ -170,7 +171,6 @@ class MocBoardService {
                     result = false
                 }
             }
-
 
         return result
     }

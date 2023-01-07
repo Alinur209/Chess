@@ -5,9 +5,9 @@ class Game {
     static revealTheWinner(player) {
         setTimeout(() => {
             alert(player + " won!")
-            document.getElementById("board").innerHTML = ''
-            Pieces.pieces = []
-            this.restart()
+            // document.getElementById("board").innerHTML = ''
+            // Pieces.pieces = []
+            // this.restart()
         }, 500)
     }
     

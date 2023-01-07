@@ -68,7 +68,7 @@ class PromotionService {
                     })
                     .then(pieces => {
                         pieces.forEach(piece => piece.name === "King" && piece.defineRange())
-                        pieces.forEach(piece => piece.defineMoves())
+                        pieces.forEach(piece => piece.defineMoves({type: 'Game', Board: Board}))
                         KingService.serveKing(pieces)
                         
                     })

@@ -148,20 +148,21 @@ class Pawn extends Piece {
         return result
     }
 
-    defineMoves(condig) {
-        this.get_attack_moves(condig)
-        this.get_front_moves(condig)
+    defineMoves(config) {
+        this.get_attack_moves(config)
+        this.get_front_moves(config)
 
         const moves = [...this.attack_moves, ...this.front_moves]
 
-        if(condig.type === "Game") {
+        if(config.type === "Game") {
             if(KingService.isSafeKing(Pieces.pieces) || KingService.get_current_king().color !== this.color) {
                 this.moves = moves
                 return this.moves
             }else {
+
                 const ally_king = KingService.get_current_king()
                 const legal_moves = moves.filter(move => ally_king.attacking_stream.flat().includes(move))
-    
+
                 this.moves = legal_moves
                 return moves
             }
