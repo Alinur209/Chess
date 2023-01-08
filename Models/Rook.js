@@ -189,9 +189,9 @@ class Rook extends Piece {
                 return this.moves
             }else { 
                 const ally_king = KingService.get_current_king()
-                const moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
-                this.moves = moves
-                return moves
+                const new_moves = [...top, ...bottom, ...left, ...right].filter(move => ally_king.attacking_stream.flat().includes(move))
+                this.moves = new_moves
+                return new_moves
             }
 
         }else if(type === "Moc"){

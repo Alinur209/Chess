@@ -45,6 +45,7 @@ class Board {
         }
 
         this.clickHandler()
+        this.rotateHandler()
     }
 
     static check() {
@@ -65,6 +66,13 @@ class Board {
                     check_mark.remove()
                 }
             } 
+        })
+    }
+
+    static rotateHandler() {
+        const rotateBtn = document.querySelector(".rotate_btn")
+        rotateBtn.addEventListener("click", () => {
+            
         })
     }
 

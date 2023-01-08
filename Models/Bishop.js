@@ -178,13 +178,14 @@ defineMoves({type, Board}) {
                 this.moves = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight]
                 return this.moves
             }else {
+                // this.moves are already defined
                 const ally_king = KingService.get_current_king()
-                const moves = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight].filter(move => ally_king.attacking_stream.flat().includes(move))
+                const new_moves = this.moves.filter(move => ally_king.attacking_stream.flat().includes(move))
     
-                this.moves = moves
-                return moves
+                this.moves = new_moves
+                return new_moves
             }
-        }else {
+        }else if(type === "Moc"){
             this.moves = [...topLeft, ...topRight, ...bottomLeft, ...bottomRight]
         }
     }

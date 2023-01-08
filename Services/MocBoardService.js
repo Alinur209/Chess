@@ -2,7 +2,6 @@ import Bishop from "../Models/Bishop.js";
 import King from "../Models/King.js";
 import Knight from "../Models/Knight.js";
 import Pawn from "../Models/Pawn.js";
-import Piece from "../Models/Piece.js";
 import Queen from "../Models/Queen.js";
 import Rook from "../Models/Rook.js";
 import Utiles from "../Utiles/utiles.js";

@@ -164,3 +164,11 @@ body {
 .promotion_image {
     width: 64px;
 }
+.rotate_btn {
+    font-size: 18px;
+    border-radius: 5px;
+    padding: 5px 8px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+}
