@@ -1,5 +1,5 @@
 #Stack
 
-<ul> HTML&CSS <br>
-<ul> Javascript <br>
-<ul> OOP <br>
+HTML&CSS <br>
+Javascript <br>
+OOP <br>
