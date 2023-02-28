@@ -20,13 +20,3 @@ To run this project, install it locally using npm:
 $ npm install
 $ npm start
 ```
-# Status
-
-The project is still being developed..
-
-Finished: 
-
-* Game logic & other features <br>
-* Frontend board view <br>
-* Authentication API <br>
-
