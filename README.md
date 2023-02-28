@@ -9,7 +9,7 @@ This is a training Full-Stack project, a chess game, to enhance my skills in pur
 * OOP <br>
 * Node js <br>
 * Express js <br>
-* Mongo DB <br>
+* PostgreSQL <br>
 * Web-Socket <br>
 
 # Setup
