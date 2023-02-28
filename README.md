@@ -30,9 +30,3 @@ Finished:
 * Frontend board view <br>
 * Authentication API <br>
 
-Todo:
-
-* Online game <br>
-* Chat
-* Authentication & Profile page
-* Player statistics
